@@ -7,14 +7,14 @@
 		body {
 			background-color: grey;
 		}
+		#out {
+			text-align: center;
+			width: 500px;
+			margin: 50px auto;
+		}
 	</style>
 </head>
 	<div id="out"></div>
-	<ul>
-		<li>Temp</li>
-		<li>Description</li>
-		<li>Icon</li>
-	</ul>
 <body>
 	<script
 	  src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -42,14 +42,30 @@
 					
 					$.getJSON(buildURL(latitude, longitude, apiKey), function(json) {
 
-						output.innerHTML = '<p>Latitude is: ' + latitude + ', and Longitude is: ' + longitude + ', from: ' + JSON.stringify(json.name) + '</p>';
+						window.showLocalW =  {
+							'city': JSON.stringify(json.name),
+							'temperature': convertKelvinToCelsius(JSON.stringify(json.main.temp)),
+							'description': JSON.stringify(json.weather[0].description)
+						}
+
+						output.innerHTML = 
+							'<p>' + 'City: ' + window.showLocalW.city + '<br>' 
+							+ 'Temperature: ' + window.showLocalW.temperature + ' &#8451;' + '<br>'
+							+ 'Description: ' + window.showLocalW.description + '</p>';
 
 					});
+
+
 
 				}
 
 				function error() {
 					output.innerHTML = 'Unable to retrive your location';
+				}
+
+				function convertKelvinToCelsius(kelvin) {
+					var celsius = kelvin - 273;
+					return Math.round(celsius);
 				}
 
 				function buildURL(latitude, longitude, apiKey) {
