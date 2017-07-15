@@ -4,30 +4,31 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<style>
+
 		body {
 			background-color: grey;
 		}
-		#out {
+
+		.center {
 			text-align: center;
 			width: 500px;
 			margin: 50px auto;
 		}
+
 	</style>
 </head>
-	<div id="out"></div>
 <body>
+	<div id="out" class="center"></div>
+	<div>
+		<ul id="weather-list" class="center"></ul>
+	</div>
 	<script
 	  src="https://code.jquery.com/jquery-3.2.1.min.js"
 	  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	  crossorigin="anonymous">
   </script>
 	<script>
-
-
-	// 1. Get the location
-
-
-			(function geoFindMe() {
+			(function app() {
 				var output = document.getElementById('out');
 				var apiKey = '65e1a3f7909bd8dd36e520691bc2f89c';
 
@@ -40,23 +41,23 @@
 					latitude = position.coords.latitude;
 					longitude = position.coords.longitude;
 					
+					// Call the API
 					$.getJSON(buildURL(latitude, longitude, apiKey), function(json) {
 
-						window.showLocalW =  {
-							'city': JSON.stringify(json.name),
-							'temperature': convertKelvinToCelsius(JSON.stringify(json.main.temp)),
-							'description': JSON.stringify(json.weather[0].description)
+						// Paint here:
+
+						function createLi(data){
+							var list = document.getElementById('weather-list');
+							var node = document.createElement('li');
+							var textnode = document.createTextNode(data);
+							node.appendChild(textnode);
+							list.appendChild(node);
 						}
 
-						output.innerHTML = 
-							'<p>' + 'City: ' + window.showLocalW.city + '<br>' 
-							+ 'Temperature: ' + window.showLocalW.temperature + ' &#8451;' + '<br>'
-							+ 'Description: ' + window.showLocalW.description + '</p>';
-
+						createLi(JSON.stringify(json.name));
+						createLi(convertKelvinToCelsius(JSON.stringify(json.main.temp)));
+						createLi(JSON.stringify(json.weather[0].description));
 					});
-
-
-
 				}
 
 				function error() {
@@ -68,6 +69,7 @@
 					return Math.round(celsius);
 				}
 
+				// Build the URL
 				function buildURL(latitude, longitude, apiKey) {
 					var apiURL = 'http://api.openweathermap.org/data/2.5/weather?lat=' + latitude + '&lon=' + longitude + '&APPID=' + apiKey;
 					console.log(apiURL);
@@ -76,17 +78,17 @@
 
 				output.innerHTML = '<p>Locating...</p>';
 
+				// Get the location
 				navigator.geolocation.getCurrentPosition(sucess, error);
-
 		})();
 
 
 
 
 
-	// 2. Build the URL
-	// 3. Call the API
-	// 4. Paint
+
+	
+	
 
 	</script>
 </body>
