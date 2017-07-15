@@ -3,34 +3,72 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<style>
+		body {
+			background-color: grey;
+		}
+	</style>
 </head>
+	<div id="out"></div>
+	<ul>
+		<li>Temp</li>
+		<li>Description</li>
+		<li>Icon</li>
+	</ul>
 <body>
+	<script
+	  src="https://code.jquery.com/jquery-3.2.1.min.js"
+	  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	  crossorigin="anonymous">
+  </script>
 	<script>
 
 
 	// 1. Get the location
 
-			var apiKey = '65e1a3f7909bd8dd36e520691bc2f89c';
-			var latitude, longitude, apiURL;
 
-			navigator.geolocation.getCurrentPosition(function(pos) {
-	  		latitude = pos.coords.latitude;
-	  		longitude = pos.coords.longitude;
-			});
+			(function geoFindMe() {
+				var output = document.getElementById('out');
+				var apiKey = '65e1a3f7909bd8dd36e520691bc2f89c';
 
-			console.log(latitude);
-			console.log(longitude);
+				if (!navigator.geolocation) {
+					output.innerHTML = '<p>Geolocation is not supported by your browser</p>';
+					return;
+				}
+
+				function sucess(position) {
+					latitude = position.coords.latitude;
+					longitude = position.coords.longitude;
+					
+					$.getJSON(buildURL(latitude, longitude, apiKey), function(json) {
+
+						output.innerHTML = '<p>Latitude is: ' + latitude + ', and Longitude is: ' + longitude + ', from: ' + JSON.stringify(json.name) + '</p>';
+
+					});
+
+				}
+
+				function error() {
+					output.innerHTML = 'Unable to retrive your location';
+				}
+
+				function buildURL(latitude, longitude, apiKey) {
+					var apiURL = 'http://api.openweathermap.org/data/2.5/weather?lat=' + latitude + '&lon=' + longitude + '&APPID=' + apiKey;
+					console.log(apiURL);
+			  	return apiURL;
+				}
+
+				output.innerHTML = '<p>Locating...</p>';
+
+				navigator.geolocation.getCurrentPosition(sucess, error);
+
+		})();
+
+
+
+
 
 	// 2. Build the URL
-
-			apiURL = 'http://api.openweathermap.org/data/2.5/weather?lat='
-				+ latitude + '&lon=' 
-        + longitude + '&APPID='
-        + apiKey;
-
-     	console.log(apiURL);
-
-
 	// 3. Call the API
 	// 4. Paint
 
