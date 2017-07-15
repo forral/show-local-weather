@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+
+
+	// 1. Get the location
+
+			var apiKey = '65e1a3f7909bd8dd36e520691bc2f89c';
+			var latitude, longitude, apiURL;
+
+			navigator.geolocation.getCurrentPosition(function(pos) {
+	  		latitude = pos.coords.latitude;
+	  		longitude = pos.coords.longitude;
+			});
+
+			console.log(latitude);
+			console.log(longitude);
+
+	// 2. Build the URL
+
+			apiURL = 'http://api.openweathermap.org/data/2.5/weather?lat='
+				+ latitude + '&lon=' 
+        + longitude + '&APPID='
+        + apiKey;
+
+     	console.log(apiURL);
+
+
+	// 3. Call the API
+	// 4. Paint
+
+	</script>
+</body>
+</html>
