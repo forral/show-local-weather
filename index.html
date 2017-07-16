@@ -97,21 +97,21 @@
 					var iconName;
 
 					var icons = {
-						'clear sky': '01d',
-						'few clouds': '02d',
-						'scattered clouds': '03d',
-						'broken clouds': '04d',
-						'shower rain': '09d',
-						'rain': '10d',
-						'thunderstorm': '11d',
-						'snow': '13d',
-						'mist': '5dn'
+						'clear sky': '009-sun-1',
+						'few clouds': '046-cloudy-day',
+						'scattered clouds': '044-cloudy',
+						'broken clouds': '044-cloudy',
+						'shower rain': '023-rain-3',
+						'rain': '022-rain-4',
+						'thunderstorm': '012-storm-1',
+						'snow': '014-snow-5',
+						'mist': '040-foggy'
 					};
 
 					for (var prop in icons) {
 						if (icons.hasOwnProperty(description)) {
 							iconName = (icons[description]);
-							return 'http://openweathermap.org/img/w/' + iconName + '.png';
+							return 'assets/icons/png/' + iconName + '.png';
 						}
 					}
 				}
