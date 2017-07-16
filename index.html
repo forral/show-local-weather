@@ -48,14 +48,31 @@
 
 						function createLi(data){
 							var list = document.getElementById('weather-list');
-							var node = document.createElement('li');
+							var liElement = document.createElement('li');
+
+							data = removeDoubleQuotes(data);
+
 							var textnode = document.createTextNode(data);
-							node.appendChild(textnode);
-							list.appendChild(node);
+							liElement.appendChild(textnode);
+							list.appendChild(liElement);
 						}
 
-						createLi(JSON.stringify(json.name));
+						function createLiWithImage(data) {
+							var list = document.getElementById('weather-list');
+
+							var imgElement = document.createElement('img');
+							data = removeDoubleQuotes(data);
+							imgElement.src = buildIconURL(data);
+
+							var liElement = document.createElement('li');
+
+							liElement.appendChild(imgElement);
+							list.appendChild(liElement);
+						}
+
+						createLiWithImage(JSON.stringify(json.weather[0].description));
 						createLi(convertKelvinToCelsius(JSON.stringify(json.main.temp)));
+						createLi(JSON.stringify(json.name));
 						createLi(JSON.stringify(json.weather[0].description));
 					});
 				}
@@ -76,20 +93,40 @@
 			  	return apiURL;
 				}
 
-				output.innerHTML = '<p>Locating...</p>';
+				function buildIconURL(description) {
+					var iconName;
 
+					var icons = {
+						'clear sky': '01d',
+						'few clouds': '02d',
+						'scattered clouds': '03d',
+						'broken clouds': '04d',
+						'shower rain': '09d',
+						'rain': '10d',
+						'thunderstorm': '11d',
+						'snow': '13d',
+						'mist': '5dn'
+					};
+
+					for (var prop in icons) {
+						if (icons.hasOwnProperty(description)) {
+							iconName = (icons[description]);
+							return 'http://openweathermap.org/img/w/' + iconName + '.png';
+						}
+					}
+				}
+
+				function removeDoubleQuotes(data) {
+					if (typeof data === 'string') {
+						return data.replace(/\"/g, "");
+					}
+					return data;
+				}
+
+				output.innerHTML = '<p>Locating...</p>';
 				// Get the location
 				navigator.geolocation.getCurrentPosition(sucess, error);
 		})();
-
-
-
-
-
-
-	
-	
-
 	</script>
 </body>
 </html>
