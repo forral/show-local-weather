@@ -4,15 +4,22 @@ body, ul, li {
 }
 
 body {
-	background-color: grey;
+	background-image: url(assets/images/jason-blackeye-295313.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
 }
 
 .center {
-	width: 500px;
+	width: 100%;
 	margin: 50px auto;
 }
 
 #weather-list {
+	text-align: center;
+}
+
+#out {
 	text-align: center;
 }
 
@@ -35,7 +42,7 @@ li:nth-child(2):after {
 
 li:nth-child(3) {
 	font-size: 20px;
-	font-weight: 900;
+	font-weight: 500;
 	text-transform: uppercase;
 }
 
