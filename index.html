@@ -32,6 +32,14 @@
 					// Call the API
 					$.getJSON(buildURL(latitude, longitude, apiKey), function(json) {
 
+						var weatherApp = {
+							'kelvin': Math.round(JSON.stringify(json.main.temp)),
+							'fahrenheit': convertKelvinsToFahrenheit(JSON.stringify(json.main.temp)),
+							'celsius': convertKelvinToCelsius(JSON.stringify(json.main.temp))
+						}
+
+						window.weatherApp = weatherApp;
+
 						// Paint here:
 
 						function createLi(data){
