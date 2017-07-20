@@ -26,8 +26,8 @@
 				}
 
 				function sucess(position) {
-					latitude = position.coords.latitude;
-					longitude = position.coords.longitude;
+					var latitude = position.coords.latitude;
+					var longitude = position.coords.longitude;
 					
 					// Call the API
 					$.getJSON(buildURL(latitude, longitude, apiKey), function(json) {
@@ -69,11 +69,6 @@
 					output.innerHTML = 'Unable to retrive your location';
 				}
 
-				function convertKelvinToCelsius(kelvin) {
-					var celsius = kelvin - 273;
-					return Math.round(celsius);
-				}
-
 				// Build the URL
 				function buildURL(latitude, longitude, apiKey) {
 					var apiURL = 'http://api.openweathermap.org/data/2.5/weather?lat=' + latitude + '&lon=' + longitude + '&APPID=' + apiKey;
@@ -81,6 +76,7 @@
 			  	return apiURL;
 				}
 
+				// http://openweathermap.org/weather-conditions
 				function buildIconURL(description) {
 					var iconName;
 
@@ -148,6 +144,16 @@
 							return 'assets/icons/png/' + iconName + '.png';
 						}
 					}
+				}
+
+				function convertKelvinToCelsius(kelvin) {
+					var celsius = kelvin - 273;
+					return Math.round(celsius);
+				}
+
+				function convertKelvinsToFahrenheit(kelvin) {
+					var fahrenheit = kelvin * 9 / 5 - 459.67
+					return Math.round(fahrenheit)
 				}
 
 				function removeDoubleQuotes(data) {
