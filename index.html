@@ -33,7 +33,6 @@
 					$.getJSON(buildURL(latitude, longitude, apiKey), function(json) {
 
 						var weatherApp = {
-							'kelvin': Math.round(JSON.stringify(json.main.temp)),
 							'fahrenheit': convertKelvinsToFahrenheit(JSON.stringify(json.main.temp)),
 							'celsius': convertKelvinToCelsius(JSON.stringify(json.main.temp))
 						}
@@ -66,10 +65,23 @@
 							list.appendChild(liElement);
 						}
 
-						createLiWithImage(JSON.stringify(json.weather[0].description));
-						createLi(convertKelvinToCelsius(JSON.stringify(json.main.temp)));
-						createLi(JSON.stringify(json.name));
-						createLi(JSON.stringify(json.weather[0].description));
+						function createUl() {
+
+							var list = document.createElement('ul');
+							list.appendChild(createLiWithImage(JSON.stringify(json.weather[0].description)));
+							list.appendChild(createLi(convertKelvinToCelsius(JSON.stringify(json.main.temp))));
+							list.appendChild(createLi(JSON.stringify(json.name)));
+							list.appendChild(createLi(JSON.stringify(json.weather[0].description)));
+
+							console.log(list);
+						}
+
+						createUl();
+
+						// createLiWithImage(JSON.stringify(json.weather[0].description));
+						// createLi(convertKelvinToCelsius(JSON.stringify(json.main.temp)));
+						// createLi(JSON.stringify(json.name));
+						// createLi(JSON.stringify(json.weather[0].description));
 					});
 				}
 
