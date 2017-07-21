@@ -7,9 +7,6 @@
 </head>
 <body>
 	<div id="out" class="center"></div>
-	<div>
-		<ul id="weather-list" class="center"></ul>
-	</div>
 	<script
 	  src="https://code.jquery.com/jquery-3.2.1.min.js"
 	  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -35,11 +32,20 @@
 						var weatherApp = {
 							'fahrenheit': convertKelvinsToFahrenheit(JSON.stringify(json.main.temp)),
 							'celsius': convertKelvinToCelsius(JSON.stringify(json.main.temp))
-						}
+						};
 
 						window.weatherApp = weatherApp;
 
+
 						// Paint here:
+
+						// 1. create an <ul> with id="weather-list" and class="center"
+						// 2. create an <li> with the icon and append it to <ul>
+						// 3. create an <li> with the temperature and append it to <ul>
+						// 4. create an <li> with the location and append it to <ul>
+						// 5. create an <li> with the desciption and append it to <ul>
+						// 6. append <ul> to the #out <div>
+
 
 						function createLi(data){
 							var list = document.getElementById('weather-list');
@@ -68,6 +74,7 @@
 						function createUl() {
 
 							var list = document.createElement('ul');
+							console.log(createLiWithImage(JSON.stringify(json.weather[0].description)));
 							list.appendChild(createLiWithImage(JSON.stringify(json.weather[0].description)));
 							list.appendChild(createLi(convertKelvinToCelsius(JSON.stringify(json.main.temp))));
 							list.appendChild(createLi(JSON.stringify(json.name)));
@@ -172,8 +179,8 @@
 				}
 
 				function convertKelvinsToFahrenheit(kelvin) {
-					var fahrenheit = kelvin * 9 / 5 - 459.67
-					return Math.round(fahrenheit)
+					var fahrenheit = kelvin * 9 / 5 - 459.67;
+					return Math.round(fahrenheit);
 				}
 
 				function removeDoubleQuotes(data) {
