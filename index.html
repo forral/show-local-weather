@@ -40,51 +40,80 @@
 						// Paint here:
 
 						// 1. create an <ul> with id="weather-list" and class="center"
+						var weatherList = '<ul id="weather-list" class="center"></ul>';
+						output.innerHTML = weatherList;
+
 						// 2. create an <li> with the icon and append it to <ul>
+						function createLiWithIcon(){
+							var liElement = document.createElement('li');
+							var imgElement = document.createElement('img');
+
+							var weatherDesciption = JSON.stringify(json.weather[0].description);
+							weatherDesciption = removeDoubleQuotes(weatherDesciption);
+
+							imgElement.src = buildIconURL(weatherDesciption);
+
+							weatherList = document.getElementById('weather-list');
+
+							liElement.appendChild(imgElement);
+							weatherList.appendChild(liElement);
+						}
+
+						createLiWithIcon();
+
 						// 3. create an <li> with the temperature and append it to <ul>
+						// function createLiWithTemp(){
+						// 	var liElement = document.createElement('li');
+
+						// 	var temperature
+
+
+						// }
+
+
+
 						// 4. create an <li> with the location and append it to <ul>
 						// 5. create an <li> with the desciption and append it to <ul>
 						// 6. append <ul> to the #out <div>
 
 
-						function createLi(data){
-							var list = document.getElementById('weather-list');
-							var liElement = document.createElement('li');
+						// function createLi(data){
+						// 	var list = document.getElementById('weather-list');
+						// 	var liElement = document.createElement('li');
 
-							data = removeDoubleQuotes(data);
+						// 	data = removeDoubleQuotes(data);
 
-							var textnode = document.createTextNode(data);
-							liElement.appendChild(textnode);
-							list.appendChild(liElement);
-						}
+						// 	var textnode = document.createTextNode(data);
+						// 	liElement.appendChild(textnode);
+						// 	list.appendChild(liElement);
+						// }
 
-						function createLiWithImage(data) {
-							var list = document.getElementById('weather-list');
+						// function createLiWithImage(data) {
+						// 	var list = document.getElementById('weather-list');
 
-							var imgElement = document.createElement('img');
-							data = removeDoubleQuotes(data);
-							imgElement.src = buildIconURL(data);
+						// 	var imgElement = document.createElement('img');
+						// 	data = removeDoubleQuotes(data);
+						// 	imgElement.src = buildIconURL(data);
 
-							var liElement = document.createElement('li');
+						// 	var liElement = document.createElement('li');
 
-							liElement.appendChild(imgElement);
-							list.appendChild(liElement);
-						}
+						// 	liElement.appendChild(imgElement);
+						// 	list.appendChild(liElement);
+						// }
 
-						function createUl() {
+						// function createUl() {
 
-							var list = document.createElement('ul');
-							console.log(createLiWithImage(JSON.stringify(json.weather[0].description)));
-							list.appendChild(createLiWithImage(JSON.stringify(json.weather[0].description)));
-							list.appendChild(createLi(convertKelvinToCelsius(JSON.stringify(json.main.temp))));
-							list.appendChild(createLi(JSON.stringify(json.name)));
-							list.appendChild(createLi(JSON.stringify(json.weather[0].description)));
+						// 	var list = document.createElement('ul');
+						// 	console.log(createLiWithImage(JSON.stringify(json.weather[0].description)));
+						// 	list.appendChild(createLiWithImage(JSON.stringify(json.weather[0].description)));
+						// 	list.appendChild(createLi(convertKelvinToCelsius(JSON.stringify(json.main.temp))));
+						// 	list.appendChild(createLi(JSON.stringify(json.name)));
+						// 	list.appendChild(createLi(JSON.stringify(json.weather[0].description)));
 
-							console.log(list);
-						}
+						// 	console.log(list);
+						// }
 
-						createUl();
-
+						// createUl();
 						// createLiWithImage(JSON.stringify(json.weather[0].description));
 						// createLi(convertKelvinToCelsius(JSON.stringify(json.main.temp)));
 						// createLi(JSON.stringify(json.name));
