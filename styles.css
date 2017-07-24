@@ -36,10 +36,6 @@ li:nth-child(2) {
 	font-size: 64px;
 }
 
-li:nth-child(2):after {
-	content: 'ºc'
-}
-
 li:nth-child(3) {
 	font-size: 20px;
 	font-weight: 500;

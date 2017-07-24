@@ -64,10 +64,12 @@
 						//3. create an <li> with the temperature and append it to <ul>
 						function createLiWithTemp(){
 							var liElement = document.createElement('li');
-							var temperature = convertKelvinToCelsius(JSON.stringify(json.main.temp));
+							var anchorElement = document.createElement('a');
+							var temperature = convertKelvinToCelsius(JSON.stringify(json.main.temp)) + 'ºC';
 
 							var textnode = document.createTextNode(temperature);
-							liElement.appendChild(textnode);
+							anchorElement.appendChild(textnode);
+							liElement.appendChild(anchorElement);
 							weatherList.appendChild(liElement);
 						}
 
@@ -98,52 +100,6 @@
 						}
 
 						liWithDescription();
-
-
-						// 6. append <ul> to the #out <div>
-
-
-						// function createLi(data){
-						// 	var list = document.getElementById('weather-list');
-						// 	var liElement = document.createElement('li');
-
-						// 	data = removeDoubleQuotes(data);
-
-						// 	var textnode = document.createTextNode(data);
-						// 	liElement.appendChild(textnode);
-						// 	list.appendChild(liElement);
-						// }
-
-						// function createLiWithImage(data) {
-						// 	var list = document.getElementById('weather-list');
-
-						// 	var imgElement = document.createElement('img');
-						// 	data = removeDoubleQuotes(data);
-						// 	imgElement.src = buildIconURL(data);
-
-						// 	var liElement = document.createElement('li');
-
-						// 	liElement.appendChild(imgElement);
-						// 	list.appendChild(liElement);
-						// }
-
-						// function createUl() {
-
-						// 	var list = document.createElement('ul');
-						// 	console.log(createLiWithImage(JSON.stringify(json.weather[0].description)));
-						// 	list.appendChild(createLiWithImage(JSON.stringify(json.weather[0].description)));
-						// 	list.appendChild(createLi(convertKelvinToCelsius(JSON.stringify(json.main.temp))));
-						// 	list.appendChild(createLi(JSON.stringify(json.name)));
-						// 	list.appendChild(createLi(JSON.stringify(json.weather[0].description)));
-
-						// 	console.log(list);
-						// }
-
-						// createUl();
-						// createLiWithImage(JSON.stringify(json.weather[0].description));
-						// createLi(convertKelvinToCelsius(JSON.stringify(json.main.temp)));
-						// createLi(JSON.stringify(json.name));
-						// createLi(JSON.stringify(json.weather[0].description));
 					});
 				}
 
@@ -244,6 +200,11 @@
 					}
 					return data;
 				}
+
+				// function toggleTempScales() {
+				// 	var temperature = document.getElementById();
+				// 	addEventLister();
+				// }
 
 				output.innerHTML = '<p>Locating...</p>';
 				// Get the location
