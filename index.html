@@ -61,19 +61,45 @@
 
 						createLiWithIcon();
 
-						// 3. create an <li> with the temperature and append it to <ul>
-						// function createLiWithTemp(){
-						// 	var liElement = document.createElement('li');
+						//3. create an <li> with the temperature and append it to <ul>
+						function createLiWithTemp(){
+							var liElement = document.createElement('li');
+							var temperature = convertKelvinToCelsius(JSON.stringify(json.main.temp));
 
-						// 	var temperature
+							var textnode = document.createTextNode(temperature);
+							liElement.appendChild(textnode);
+							weatherList.appendChild(liElement);
+						}
 
-
-						// }
-
-
+						createLiWithTemp();
 
 						// 4. create an <li> with the location and append it to <ul>
+						function createLiWithLocation(){
+							var liElement = document.createElement('li');
+							var location = JSON.stringify(json.name);
+							location = removeDoubleQuotes(location);
+
+							var textnode = document.createTextNode(location);
+							liElement.appendChild(textnode);
+							weatherList.appendChild(liElement);
+						}
+
+						createLiWithLocation();
+
 						// 5. create an <li> with the desciption and append it to <ul>
+						function liWithDescription() {
+							var liElement = document.createElement('li');
+							var description = JSON.stringify(json.weather[0].description);
+							description = removeDoubleQuotes(description);
+
+							var textnode = document.createTextNode(description);
+							liElement.appendChild(textnode);
+							weatherList.appendChild(liElement);
+						}
+
+						liWithDescription();
+
+
 						// 6. append <ul> to the #out <div>
 
 
