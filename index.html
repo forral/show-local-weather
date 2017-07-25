@@ -64,8 +64,8 @@
 						//3. create an <li> with the temperature and append it to <ul>
 						function createLiWithTemp(){
 							var liElement = document.createElement('li');
-							var anchorElement = document.createElement('a');
-							var temperature = convertKelvinToCelsius(JSON.stringify(json.main.temp)) + 'ºC';
+							var anchorElement = document.createElement('spam');
+							var temperature = convertKelvinToCelsius(JSON.stringify(json.main.temp));
 
 							var textnode = document.createTextNode(temperature);
 							anchorElement.appendChild(textnode);
@@ -100,6 +100,21 @@
 						}
 
 						liWithDescription();
+
+
+						function changeDegreesTypeEvent() {
+							var spamElement = document.getElementsByTagName('spam');
+							spamElement[0].addEventListener('click', function() {
+								if (spamElement[0].textContent === weatherApp.celsius) {
+									spamElement[0].textContent = weatherApp.fahrenheit;
+								} else {
+									spamElement[0].textContent = weatherApp.celsius;
+								}
+							});
+						}
+
+						changeDegreesTypeEvent();
+
 					});
 				}
 
@@ -186,12 +201,12 @@
 
 				function convertKelvinToCelsius(kelvin) {
 					var celsius = kelvin - 273;
-					return Math.round(celsius);
+					return Math.round(celsius) + 'ºC';
 				}
 
 				function convertKelvinsToFahrenheit(kelvin) {
 					var fahrenheit = kelvin * 9 / 5 - 459.67;
-					return Math.round(fahrenheit);
+					return Math.round(fahrenheit) + 'ºF';
 				}
 
 				function removeDoubleQuotes(data) {
@@ -201,15 +216,11 @@
 					return data;
 				}
 
-				// function toggleTempScales() {
-				// 	var temperature = document.getElementById();
-				// 	addEventLister();
-				// }
-
 				output.innerHTML = '<p>Locating...</p>';
 				// Get the location
 				navigator.geolocation.getCurrentPosition(sucess, error);
 		})();
+
 	</script>
 </body>
 </html>
