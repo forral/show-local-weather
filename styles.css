@@ -3,11 +3,15 @@ body, ul, li {
 	padding: 0;
 }
 
+
+/* https://www.webpagefx.com/blog/web-design/responsive-background-image/ */
 body {
 	background-image: url(assets/images/jason-blackeye-295313.jpg);
 	background-repeat: no-repeat;
 	background-attachment: fixed;
-	background-position: center;
+	background-position: center center;
+	background-size: cover;
+	background-color: #464646;
 }
 
 .center {
