@@ -31,24 +31,101 @@
 
 						var weatherApp = {
 							'fahrenheit': convertKelvinsToFahrenheit(JSON.stringify(json.main.temp)),
-							'celsius': convertKelvinToCelsius(JSON.stringify(json.main.temp))
+							'celsius': convertKelvinToCelsius(JSON.stringify(json.main.temp)),
 						};
 
 						window.weatherApp = weatherApp;
 
+						var weatherList = '<ul id="weather-list" class="center"></ul>';
+						output.innerHTML = weatherList;
+
+						var weatherDesciption = removeDoubleQuotes(JSON.stringify(json.weather[0].description));
 
 						// Paint here:
 
+
+						// 0. Add Background-color
+						function backgroundImage(description) {
+							var backgroundImageName;
+
+							var images = {
+								'clear sky': 'day',
+								'few clouds': 'cloudy-day-1',
+								'scattered clouds': 'cloudy-day-3',
+								'broken clouds': 'cloudy',
+								'overcast clouds': 'cloudy',
+								'shower rain': 'rainy-6',
+								'light intensity drizzle': 'rainy-6',
+								'drizzle': 'rainy-6',
+								'heavy intensity drizzle': 'rainy-6',
+								'light intensity drizzle rain': 'rainy-6',
+								'drizzle rain': 'rainy-6',
+								'heavy intensity drizzle rain': 'rainy-6',
+								'shower rain and drizzle': 'rainy-6',
+								'heavy shower rain and drizzle': 'rainy-6',
+								'shower drizzle': 'rainy-6',
+								'light intensity shower rain': 'rainy-6',
+								'heavy intensity shower rain': 'rainy-6',
+								'ragged shower rain': 'rainy-6',
+								'rain': 'rainy-1',
+								'light rain': 'rainy-1',
+								'moderate rain': 'rainy-1',
+								'heavy intensity rain': 'rainy-1',
+								'very heavy rain': 'rainy-1',
+								'extreme rain': 'rainy-1',
+								'thunderstorm': 'thunder',
+								'thunderstorm with light rain': 'thunder',
+								'thunderstorm with rain': 'thunder',
+								'thunderstorm with heavy rain': 'thunder',
+								'light thunderstorm': 'thunder',
+								'heavy thunderstorm': 'thunder',
+								'ragged thunderstorm': 'thunder',
+								'thunderstorm with light drizzle': 'thunder',
+								'thunderstorm with drizzle': 'thunder',
+								'thunderstorm with heavy drizzle': 'thunder',
+								'snow': 'snowy-6',
+								'freezing rain': 'snowy-6',
+								'light snow': 'snowy-6',
+								'heavy snow': 'snowy-6',
+								'sleet': 'snowy-6',
+								'shower sleet': 'snowy-6',
+								'light rain and snow': 'snowy-6',
+								'rain and snow': 'snowy-6',
+								'light shower snow': 'snowy-6',
+								'shower snow': 'snowy-6',
+								'heavy shower snow': 'snowy-6',
+								'mist': 'cloudy',
+								'smoke': 'cloudy',
+								'haze': 'cloudy',
+								'sand, dust whirls': 'cloudy',
+								'fog': 'cloudy',
+								'sand': 'cloudy',
+								'dust': 'cloudy',
+								'volcanic ash': 'cloudy',
+								'squalls': 'cloudy',
+								'tornado': 'cloudy'
+							};
+
+							for (var prop in images) {
+								if (images.hasOwnProperty(description)) {
+									backgroundImageName = (images[description]);
+
+									var backgroundImagePath = 'assets/images/' + backgroundImageName + '.jpg';
+									document.body.style.backgroundImage = 'url(' + backgroundImagePath + ')';
+								}
+							}
+						}
+						
+						backgroundImage(weatherDesciption);
+
+
 						// 1. create an <ul> with id="weather-list" and class="center"
-						var weatherList = '<ul id="weather-list" class="center"></ul>';
-						output.innerHTML = weatherList;
 
 						// 2. create an <li> with the icon and append it to <ul>
 						function createLiWithIcon(){
 							var liElement = document.createElement('li');
 							var imgElement = document.createElement('img');
 
-							var weatherDesciption = JSON.stringify(json.weather[0].description);
 							weatherDesciption = removeDoubleQuotes(weatherDesciption);
 
 							imgElement.src = buildIconURL(weatherDesciption);
