@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-	<div id="out" class="center"></div>
+	<div id="out" class="center loading"></div>
 	<script
 	  src="https://code.jquery.com/jquery-3.2.1.min.js"
 	  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -38,6 +38,7 @@
 
 						var weatherList = '<ul id="weather-list" class="center"></ul>';
 						output.innerHTML = weatherList;
+						document.getElementById('out').ClassList.remove('loading');
 
 						var weatherDesciption = removeDoubleQuotes(JSON.stringify(json.weather[0].description));
 
@@ -293,7 +294,7 @@
 					return data;
 				}
 
-				output.innerHTML = '<p>Locating...</p>';
+				//output.innerHTML = '<p>Locating...</p>';
 				// Get the location
 				navigator.geolocation.getCurrentPosition(sucess, error);
 		})();
