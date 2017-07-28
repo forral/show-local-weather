@@ -37,8 +37,8 @@
 						window.weatherApp = weatherApp;
 
 						var weatherList = '<ul id="weather-list" class="center"></ul>';
+						output.className = "center";
 						output.innerHTML = weatherList;
-						document.getElementById('out').ClassList.remove('loading');
 
 						var weatherDesciption = removeDoubleQuotes(JSON.stringify(json.weather[0].description));
 
