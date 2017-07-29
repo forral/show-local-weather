@@ -39,97 +39,30 @@
 						var weatherList = '<ul id="weather-list" class="center"></ul>';
 						output.className = "center";
 						output.innerHTML = weatherList;
-
 						var weatherDesciption = removeDoubleQuotes(JSON.stringify(json.weather[0].description));
+						var mediaLinksObject = buildMediaURL(weatherDesciption, json.sys.sunrise, json.sys.sunset);
 
 						// Paint here:
 
-
 						// 0. Add Background-color
-						function backgroundImage(description) {
-							var backgroundImageName;
-
-							var images = {
-								'clear sky': 'day',
-								'few clouds': 'cloudy-day-1',
-								'scattered clouds': 'cloudy-day-3',
-								'broken clouds': 'cloudy',
-								'overcast clouds': 'cloudy',
-								'shower rain': 'rainy-6',
-								'light intensity drizzle': 'rainy-6',
-								'drizzle': 'rainy-6',
-								'heavy intensity drizzle': 'rainy-6',
-								'light intensity drizzle rain': 'rainy-6',
-								'drizzle rain': 'rainy-6',
-								'heavy intensity drizzle rain': 'rainy-6',
-								'shower rain and drizzle': 'rainy-6',
-								'heavy shower rain and drizzle': 'rainy-6',
-								'shower drizzle': 'rainy-6',
-								'light intensity shower rain': 'rainy-6',
-								'heavy intensity shower rain': 'rainy-6',
-								'ragged shower rain': 'rainy-6',
-								'rain': 'rainy-1',
-								'light rain': 'rainy-1',
-								'moderate rain': 'rainy-1',
-								'heavy intensity rain': 'rainy-1',
-								'very heavy rain': 'rainy-1',
-								'extreme rain': 'rainy-1',
-								'thunderstorm': 'thunder',
-								'thunderstorm with light rain': 'thunder',
-								'thunderstorm with rain': 'thunder',
-								'thunderstorm with heavy rain': 'thunder',
-								'light thunderstorm': 'thunder',
-								'heavy thunderstorm': 'thunder',
-								'ragged thunderstorm': 'thunder',
-								'thunderstorm with light drizzle': 'thunder',
-								'thunderstorm with drizzle': 'thunder',
-								'thunderstorm with heavy drizzle': 'thunder',
-								'snow': 'snowy-6',
-								'freezing rain': 'snowy-6',
-								'light snow': 'snowy-6',
-								'heavy snow': 'snowy-6',
-								'sleet': 'snowy-6',
-								'shower sleet': 'snowy-6',
-								'light rain and snow': 'snowy-6',
-								'rain and snow': 'snowy-6',
-								'light shower snow': 'snowy-6',
-								'shower snow': 'snowy-6',
-								'heavy shower snow': 'snowy-6',
-								'mist': 'cloudy',
-								'smoke': 'cloudy',
-								'haze': 'cloudy',
-								'sand, dust whirls': 'cloudy',
-								'fog': 'cloudy',
-								'sand': 'cloudy',
-								'dust': 'cloudy',
-								'volcanic ash': 'cloudy',
-								'squalls': 'cloudy',
-								'tornado': 'cloudy'
-							};
-
-							for (var prop in images) {
-								if (images.hasOwnProperty(description)) {
-									backgroundImageName = (images[description]);
-
-									var backgroundImagePath = 'assets/images/' + backgroundImageName + '.jpg';
-									document.body.style.backgroundImage = 'url(' + backgroundImagePath + ')';
-								}
-							}
+						function backgroundImage(obj) {
+							var backgroundImagePath = obj.backgroundImage;
+							document.body.style.backgroundImage = 'url(' + backgroundImagePath + ')';
 						}
 						
-						backgroundImage(weatherDesciption);
+						backgroundImage(mediaLinksObject);
 
 
 						// 1. create an <ul> with id="weather-list" and class="center"
 
 						// 2. create an <li> with the icon and append it to <ul>
-						function createLiWithIcon(){
+						function createLiWithIcon(obj){
 							var liElement = document.createElement('li');
 							var imgElement = document.createElement('img');
 
 							weatherDesciption = removeDoubleQuotes(weatherDesciption);
 
-							imgElement.src = buildIconURL(weatherDesciption);
+							imgElement.src = obj.icon;
 
 							weatherList = document.getElementById('weather-list');
 
@@ -137,7 +70,7 @@
 							weatherList.appendChild(liElement);
 						}
 
-						createLiWithIcon();
+						createLiWithIcon(mediaLinksObject);
 
 						//3. create an <li> with the temperature and append it to <ul>
 						function createLiWithTemp(){
@@ -207,74 +140,106 @@
 			  	return apiURL;
 				}
 
-				// http://openweathermap.org/weather-conditions
-				function buildIconURL(description) {
-					var iconName;
+				function buildMediaURL(description, sunriseUTS, sunsetUTS) {
 
-					var icons = {
-						'clear sky': 'day',
-						'few clouds': 'cloudy-day-1',
-						'scattered clouds': 'cloudy-day-3',
-						'broken clouds': 'cloudy',
-						'overcast clouds': 'cloudy',
-						'shower rain': 'rainy-6',
-						'light intensity drizzle': 'rainy-6',
-						'drizzle': 'rainy-6',
-						'heavy intensity drizzle': 'rainy-6',
-						'light intensity drizzle rain': 'rainy-6',
-						'drizzle rain': 'rainy-6',
-						'heavy intensity drizzle rain': 'rainy-6',
-						'shower rain and drizzle': 'rainy-6',
-						'heavy shower rain and drizzle': 'rainy-6',
-						'shower drizzle': 'rainy-6',
-						'light intensity shower rain': 'rainy-6',
-						'heavy intensity shower rain': 'rainy-6',
-						'ragged shower rain': 'rainy-6',
-						'rain': 'rainy-1',
-						'light rain': 'rainy-1',
-						'moderate rain': 'rainy-1',
-						'heavy intensity rain': 'rainy-1',
-						'very heavy rain': 'rainy-1',
-						'extreme rain': 'rainy-1',
-						'thunderstorm': 'thunder',
-						'thunderstorm with light rain': 'thunder',
-						'thunderstorm with rain': 'thunder',
-						'thunderstorm with heavy rain': 'thunder',
-						'light thunderstorm': 'thunder',
-						'heavy thunderstorm': 'thunder',
-						'ragged thunderstorm': 'thunder',
-						'thunderstorm with light drizzle': 'thunder',
-						'thunderstorm with drizzle': 'thunder',
-						'thunderstorm with heavy drizzle': 'thunder',
-						'snow': 'snowy-6',
-						'freezing rain': 'snowy-6',
-						'light snow': 'snowy-6',
-						'heavy snow': 'snowy-6',
-						'sleet': 'snowy-6',
-						'shower sleet': 'snowy-6',
-						'light rain and snow': 'snowy-6',
-						'rain and snow': 'snowy-6',
-						'light shower snow': 'snowy-6',
-						'shower snow': 'snowy-6',
-						'heavy shower snow': 'snowy-6',
-						'mist': 'cloudy',
-						'smoke': 'cloudy',
-						'haze': 'cloudy',
-						'sand, dust whirls': 'cloudy',
-						'fog': 'cloudy',
-						'sand': 'cloudy',
-						'dust': 'cloudy',
-						'volcanic ash': 'cloudy',
-						'squalls': 'cloudy',
-						'tornado': 'cloudy'
-					};
+				    function timeOfTheDay(sunrise, sunset) {
 
-					for (var prop in icons) {
-						if (icons.hasOwnProperty(description)) {
-							iconName = (icons[description]);
-							return 'assets/icons/animated/' + iconName + '.svg';
-						}
-					}
+				        function formatTime(unixTimeStamp) {
+
+				            function minTwoDigits(number) {
+				                return (number < 10 ? '0' : '') + number;
+				            }
+
+				            var date = arguments.length === 0 ? new Date() : new Date(unixTimeStamp * 1000);
+				            var hour = minTwoDigits(date.getHours());
+				            var minutes = minTwoDigits(date.getMinutes());
+				            var time = hour + ':' + minutes;
+
+				            return time;
+				        }
+
+				        var sunriseTime = formatTime(sunrise);
+				        var sunsetTime = formatTime(sunset);
+				        var currentTime = formatTime();
+
+				        if ((currentTime >= sunriseTime) && (currentTime < sunsetTime)) {
+				          return 'day';
+				        } else {
+				          return 'night';
+				        }
+				    }
+
+				    var timeIndexNumber = timeOfTheDay(sunriseUTS, sunsetUTS) === 'day' ? 0 : 1;
+
+				    var media = {
+				        'clear sky': ['day', 'night'],
+				        'few clouds': ['cloudy-day-1', 'cloudy-night-1'],
+				        'scattered clouds': ['cloudy-day-3', 'cloudy-night-3'],
+				        'broken clouds': ['cloudy', 'cloudy'],
+				        'overcast clouds': ['cloudy', 'cloudy'],
+				        'shower rain': ['rainy-6', 'night-rain'],
+				        'light intensity drizzle': ['rainy-6', 'night-rain'],
+				        'drizzle': ['rainy-6', 'night-rain'],
+				        'heavy intensity drizzle': ['rainy-6', 'night-rain'],
+				        'light intensity drizzle rain': ['rainy-6', 'night-rain'],
+				        'drizzle rain': ['rainy-6', 'night-rain'],
+				        'heavy intensity drizzle rain': ['rainy-6', 'night-rain'],
+				        'shower rain and drizzle': ['rainy-6', 'night-rain'],
+				        'heavy shower rain and drizzle': ['rainy-6', 'night-rain'],
+				        'shower drizzle': ['rainy-6', 'night-rain'],
+				        'light intensity shower rain': ['rainy-6', 'night-rain'],
+				        'heavy intensity shower rain': ['rainy-6', 'night-rain'],
+				        'ragged shower rain': ['rainy-6', 'night-rain'],
+				        'rain': ['rainy-1', 'night-rain'],
+				        'light rain': ['rainy-1', 'night-rain'],
+				        'moderate rain': ['rainy-1', 'night-rain'],
+				        'heavy intensity rain': ['rainy-1', 'night-rain'],
+				        'very heavy rain': ['rainy-1', 'night-rain'],
+				        'extreme rain': ['rainy-1', 'night-rain'],
+				        'thunderstorm': ['thunder', 'thunder'],
+				        'thunderstorm with light rain': ['thunder', 'thunder'],
+				        'thunderstorm with rain': ['thunder', 'thunder'],
+				        'thunderstorm with heavy rain': ['thunder', 'thunder'],
+				        'light thunderstorm': ['thunder', 'thunder'],
+				        'heavy thunderstorm': ['thunder', 'thunder'],
+				        'ragged thunderstorm': ['thunder', 'thunder'],
+				        'thunderstorm with light drizzle': ['thunder', 'thunder'],
+				        'thunderstorm with drizzle': ['thunder', 'thunder'],
+				        'thunderstorm with heavy drizzle': ['thunder', 'thunder'],
+				        'snow': ['snowy-6', 'snowy-6'],
+				        'freezing rain': ['snowy-6', 'snowy-6'],
+				        'light snow': ['snowy-6', 'snowy-6'],
+				        'heavy snow': ['snowy-6', 'snowy-6'],
+				        'sleet': ['snowy-6', 'snowy-6'],
+				        'shower sleet': ['snowy-6', 'snowy-6'],
+				        'light rain and snow': ['snowy-6', 'snowy-6'],
+				        'rain and snow': ['snowy-6', 'snowy-6'],
+				        'light shower snow': ['snowy-6', 'snowy-6'],
+				        'shower snow': ['snowy-6', 'snowy-6'],
+				        'heavy shower snow': ['snowy-6', 'snowy-6'],
+				        'mist': ['cloudy', 'cloudy'],
+				        'smoke': ['cloudy', 'cloudy'],
+				        'haze': ['cloudy', 'cloudy'],
+				        'sand, dust whirls': ['cloudy', 'cloudy'],
+				        'fog': ['cloudy', 'cloudy'],
+				        'sand': ['cloudy', 'cloudy'],
+				        'dust': ['cloudy', 'cloudy'],
+				        'volcanic ash': ['cloudy', 'cloudy'],
+				        'squalls': ['cloudy', 'cloudy'],
+				        'tornado': ['cloudy', 'cloudt']
+				    };
+
+				    var urlObj = {};
+
+				    // check if there is that description
+				    for (prop in media) {
+				        if (prop === description) {
+				            urlObj.icon = 'assets/icons/animated/' + media[prop][timeIndexNumber] + '.svg';
+				            urlObj.backgroundImage = 'assets/images/' + media[prop][timeIndexNumber] + '.jpg';
+				        }
+				    }
+
+				    return urlObj;
 				}
 
 				function convertKelvinToCelsius(kelvin) {
@@ -294,7 +259,6 @@
 					return data;
 				}
 
-				//output.innerHTML = '<p>Locating...</p>';
 				// Get the location
 				navigator.geolocation.getCurrentPosition(sucess, error);
 		})();
