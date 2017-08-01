@@ -18,6 +18,7 @@
 				var apiKey = '65e1a3f7909bd8dd36e520691bc2f89c';
 
 				if (!navigator.geolocation) {
+					output.className = "center";
 					output.innerHTML = '<p>Geolocation is not supported by your browser</p>';
 					return;
 				}
@@ -129,6 +130,7 @@
 				}
 
 				function error() {
+					output.className = "center";
 					output.innerHTML = 'Unable to retrive your location';
 				}
 
@@ -164,6 +166,7 @@
 				        if ((currentTime >= sunriseTime) && (currentTime < sunsetTime)) {
 				          return 'day';
 				        } else {
+				        	output.style.color = 'white';
 				          return 'night';
 				        }
 				    }
