@@ -4,7 +4,7 @@
 * quais eram as users stories que o FCC propocionou.
 * quais os extras que coloquei.
 * Quais as features que ainda quero adicionar, quando tiver o conhecimento.
-* quais foram os problemas que encontrei e como os solucionei.
+* Quais foram os problemas que encontrei e como os solucionei.
 * o que aprendi e o que sinto que tenho de aprofundar.
 * recursos e tecnologias usadas.
 
@@ -14,6 +14,14 @@
 - [ ] Testes.
 - [ ] Ter mensagens de erro e informacao com melhores estilos. Com icons de exclamacao e de cruz de erro.
 
+
+## Quais foram os problemas que encontrei e como os solucionei.
+* Mostar nesta secção quais os datos do JSON que usei
+	- Hora de nascer do sol
+	- Hora do por do sol
+	- Localização
+	- Temperatura
+	- Descripção
 
 ## O que aprendi e o que sinto que tenho de aprofundar.
 * Tenho de saber como organizar e estructurar o codigo. Ainda sinto que me falta bastante conhecimento nesta area.
